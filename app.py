@@ -20,26 +20,27 @@ if 'username' not in st.session_state:
     st.session_state.pass_expiry = None
     st.session_state.trips = []
 
-# Simple CSS for styling
+# Simple CSS for styling - Changed to green and white color scheme
 st.markdown("""
 <style>
     .card {
-        background-color: #0068c9;
+        background-color: #2e8b57; /* Changed to sea green */
         color: white;
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 20px;
     }
     .header {
-        color: #0068c9;
+        color: #2e8b57; /* Changed to sea green */
         font-size: 24px;
         font-weight: bold;
     }
     .tier {
-        background-color: #f0f2f6;
+        background-color: #f0fff0; /* Changed to honeydew (light green tint) */
         padding: 15px;
         border-radius: 10px;
         margin-bottom: 15px;
+        border: 1px solid #2e8b57; /* Added green border */
     }
 </style>
 """, unsafe_allow_html=True)
@@ -88,7 +89,7 @@ if page == "Home":
             st.markdown(f"<p class='header'>Balance: €{st.session_state.balance:.2f}</p>", unsafe_allow_html=True)
             
             amount = st.selectbox("Top Up Amount (€)", [5, 10, 20, 50])
-            if st.button("Top Up Card"):
+            if st.button("Top Up Card", key="top_up_home"):
                 st.session_state.balance += amount
                 st.success(f"Successfully topped up €{amount}")
                 st.balloons()
@@ -195,7 +196,7 @@ elif page == "Digital Card":
             st.success(f"Successfully created your Digital Leap Card with €{initial_amount} balance!")
             st.balloons()
 
-# Tourist Pass page
+# Tourist Pass page - Modified package lengths to 1, 3, and 7 days
 elif page == "Tourist Pass":
     st.title("TFI TravelPass+ for Tourists")
     
@@ -230,20 +231,20 @@ elif page == "Tourist Pass":
         """)
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("24 Hours - €10"):
-                st.session_state.tourist_pass = "TFI Basic (24h)"
+            if st.button("1 Day - €10"):
+                st.session_state.tourist_pass = "TFI Basic (1 Day)"
                 st.session_state.pass_expiry = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Basic 24-hour pass activated!")
+                st.success("TFI Basic 1-day pass activated!")
         with col2:
-            if st.button("48 Hours - €18"):
-                st.session_state.tourist_pass = "TFI Basic (48h)"
-                st.session_state.pass_expiry = (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Basic 48-hour pass activated!")
-        with col3:
-            if st.button("72 Hours - €25"):
-                st.session_state.tourist_pass = "TFI Basic (72h)"
+            if st.button("3 Days - €25"):
+                st.session_state.tourist_pass = "TFI Basic (3 Days)"
                 st.session_state.pass_expiry = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Basic 72-hour pass activated!")
+                st.success("TFI Basic 3-day pass activated!")
+        with col3:
+            if st.button("7 Days - €45"):
+                st.session_state.tourist_pass = "TFI Basic (7 Days)"
+                st.session_state.pass_expiry = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d %H:%M")
+                st.success("TFI Basic 7-day pass activated!")
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Explorer tier
@@ -256,20 +257,20 @@ elif page == "Tourist Pass":
         """)
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("24 Hours - €35"):
-                st.session_state.tourist_pass = "TFI Explorer (24h)"
+            if st.button("1 Day - €35"):
+                st.session_state.tourist_pass = "TFI Explorer (1 Day)"
                 st.session_state.pass_expiry = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Explorer 24-hour pass activated!")
+                st.success("TFI Explorer 1-day pass activated!")
         with col2:
-            if st.button("48 Hours - €55"):
-                st.session_state.tourist_pass = "TFI Explorer (48h)"
-                st.session_state.pass_expiry = (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Explorer 48-hour pass activated!")
+            if st.button("3 Days - €70"):
+                st.session_state.tourist_pass = "TFI Explorer (3 Days)"
+                st.session_state.pass_expiry = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d %H:%M")
+                st.success("TFI Explorer 3-day pass activated!")
         with col3:
-            if st.button("72 Hours - €70"):
-                st.session_state.tourist_pass = "TFI Explorer (72h)"
-                st.session_state.pass_expiry = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d %H:%M") 
-                st.success("TFI Explorer 72-hour pass activated!")
+            if st.button("7 Days - €120"):
+                st.session_state.tourist_pass = "TFI Explorer (7 Days)"
+                st.session_state.pass_expiry = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d %H:%M") 
+                st.success("TFI Explorer 7-day pass activated!")
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Premium tier
@@ -282,20 +283,20 @@ elif page == "Tourist Pass":
         """)
         col1, col2, col3 = st.columns(3)
         with col1:
-            if st.button("24 Hours - €70"):
-                st.session_state.tourist_pass = "TFI Plus (24h)"
+            if st.button("1 Day - €70"):
+                st.session_state.tourist_pass = "TFI Plus (1 Day)"
                 st.session_state.pass_expiry = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Plus 24-hour pass activated!")
+                st.success("TFI Plus 1-day pass activated!")
         with col2:
-            if st.button("48 Hours - €100"):
-                st.session_state.tourist_pass = "TFI Plus (48h)"
-                st.session_state.pass_expiry = (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Plus 48-hour pass activated!")
-        with col3:
-            if st.button("72 Hours - €130"):
-                st.session_state.tourist_pass = "TFI Plus (72h)"
+            if st.button("3 Days - €150"):
+                st.session_state.tourist_pass = "TFI Plus (3 Days)"
                 st.session_state.pass_expiry = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d %H:%M")
-                st.success("TFI Plus 72-hour pass activated!")
+                st.success("TFI Plus 3-day pass activated!")
+        with col3:
+            if st.button("7 Days - €250"):
+                st.session_state.tourist_pass = "TFI Plus (7 Days)"
+                st.session_state.pass_expiry = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d %H:%M")
+                st.success("TFI Plus 7-day pass activated!")
         st.markdown('</div>', unsafe_allow_html=True)
 
 # Data page
@@ -318,11 +319,11 @@ elif page == "Data":
     st.subheader("Digital vs Physical Card Usage")
     st.write(data)
     
-    # Create a simple plot
+    # Create a simple plot - Changed colors to match green theme
     st.subheader("Digital Adoption Trend")
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(months, digital_usage, marker='o', linewidth=2, color='#0068c9', label='Digital')
-    ax.plot(months, physical_usage, marker='o', linewidth=2, color='#ff7f0e', label='Physical')
+    ax.plot(months, digital_usage, marker='o', linewidth=2, color='#2e8b57', label='Digital')  # Changed to green
+    ax.plot(months, physical_usage, marker='o', linewidth=2, color='#6b8e23', label='Physical')  # Changed to olive green
     ax.set_xlabel('Month')
     ax.set_ylabel('Usage (%)')
     ax.set_title('Digital vs Physical Card Usage Trend')
@@ -335,7 +336,7 @@ elif page == "Data":
     # Tourist pass data
     st.subheader("Tourist Pass Sales")
     
-    # Create simple data for tourist passes
+    # Updated package names to match new duration
     tiers = ["TFI Basic", "TFI Explorer", "TFI Plus"]
     sales = [3500, 5000, 1500]
     
@@ -348,9 +349,9 @@ elif page == "Data":
     # Display the data
     st.write(tourist_data)
     
-    # Create a simple bar chart
+    # Create a simple bar chart - Changed colors to match green theme
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(tiers, sales, color=['#1f77b4', '#2ca02c', '#d62728'])
+    ax.bar(tiers, sales, color=['#3cb371', '#2e8b57', '#006400'])  # Changed to various greens
     ax.set_xlabel('Tier')
     ax.set_ylabel('Number of Passes Sold')
     ax.set_title('Tourist Pass Sales by Tier')
@@ -359,12 +360,13 @@ elif page == "Data":
     # Display the plot
     st.pyplot(fig)
     
-    # Key insights
+    # Key insights - Updated to reflect new package lengths
     st.subheader("Key Insights")
     
     st.write("""
     - Digital card adoption has increased by 27% over the past year
     - The Explorer tier is the most popular tourist pass
     - Weekend digital usage is 22% higher than weekday usage
+    - 3-day passes are the most popular duration, accounting for 45% of all sales
     - 67% of tourists prefer digital passes over traditional cards
     """)
